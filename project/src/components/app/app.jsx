@@ -1,9 +1,13 @@
 import React from 'react';
 import MainScreen from '../main-screen/main-screen';
 
-function App() {
+function App(props) {
+  const {offersCount} = props;
+
   return (
-    <MainScreen />
+    <MainScreen
+      offersCount={offersCount}
+    />
   );
 }
 
