@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 
-function MainScreen(props) {
+function MainPage(props) {
   const {offersCount} = props;
   const arrayOffers = new Array(offersCount).fill(false);
 
@@ -112,8 +112,8 @@ function MainScreen(props) {
   );
 }
 
-MainScreen.propTypes = {
+MainPage.propTypes = {
   offersCount: PropTypes.number.isRequired,
 };
 
-export default MainScreen;
+export default MainPage;

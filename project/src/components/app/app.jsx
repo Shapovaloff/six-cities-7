@@ -1,14 +1,19 @@
 import React from 'react';
-import MainScreen from '../main-screen/main-screen';
+import PropTypes from 'prop-types';
+import MainPage from '../main-page/main-page';
 
 function App(props) {
   const {offersCount} = props;
 
   return (
-    <MainScreen
+    <MainPage
       offersCount={offersCount}
     />
   );
 }
+
+App.propTypes = {
+  offersCount: PropTypes.number.isRequired,
+};
 
 export default App;
