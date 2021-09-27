@@ -20,9 +20,9 @@ export default PropTypes.shape({
     name: PropTypes.string.isRequired,
   }).isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  isFavorites: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   isPremium: PropTypes.bool.isRequired,
-  locationL: PropTypes.shape({
+  location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,

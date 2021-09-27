@@ -21,7 +21,7 @@ const offers = [
       name: 'Angelina',
     },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/room.jpg', 'img/studio-01.jpg'],
-    isFavorites: false,
+    isFavorite: false,
     isPremium: false,
     location: {
       latitude: 52.35514938496378,
