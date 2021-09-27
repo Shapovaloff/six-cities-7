@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../app/offer.prop';
+import reviewsProp from '../app/reviews.prop';
 import Header from '../header/header';
 import GalleryList from '../gallery-list/gallery-list';
 import {useLocation} from 'react-router-dom';
 import GoodsList from '../goods-list/goods-list';
 import {getRating} from '../../utils';
+import ReviewsList from '../reviews-list/reviews-list';
 
 function RoomPage(props) {
-  const {offers} = props;
+  const {offers, reviews} = props;
   const location = useLocation();
   const offer = offers.find((item) => item.id === location.state);
   const {images, goods, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, host, description} = offer;
@@ -88,32 +90,10 @@ function RoomPage(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList
+                  reviews={reviews}
+                />
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
@@ -275,6 +255,7 @@ function RoomPage(props) {
 
 RoomPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewsProp).isRequired,
 };
 
 export default RoomPage;

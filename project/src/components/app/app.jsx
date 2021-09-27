@@ -8,9 +8,10 @@ import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import offerProp from './offer.prop';
+import reviewsProp from './reviews.prop';
 
 function App(props) {
-  const {offers} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App(props) {
         <Route exact path={AppRoute.ROOM}>
           <RoomPage
             offers={offers}
+            reviews={reviews}
           />
         </Route>
         <Route>
@@ -44,6 +46,7 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewsProp).isRequired,
 };
 
 export default App;
