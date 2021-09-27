@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import Header from '../header/header';
+import offerProp from '../app/offer.prop';
 
 function MainPage(props) {
-  const {offersCount} = props;
-  const arrayOffers = new Array(offersCount).fill(false);
+  const {offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -71,9 +71,9 @@ function MainPage(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {arrayOffers.map((_, id) => {
+                {offers.map((offer, id) => {
                   const keyValue = `place-card-${id}`;
-                  return <PlaceCard key={keyValue} />;
+                  return <PlaceCard key={keyValue} offer={offer} />;
                 })}
               </div>
             </section>
@@ -88,7 +88,7 @@ function MainPage(props) {
 }
 
 MainPage.propTypes = {
-  offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 export default MainPage;

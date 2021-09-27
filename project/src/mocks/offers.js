@@ -97,7 +97,7 @@ const offers = [
     maxAdults: 3,
     previewImage: 'img/apartment-03.jpg',
     price: 100,
-    rating: 3.3,
+    rating: 3,
     title: 'Luxurious studio at great location',
     type: 'Cottage',
   }, {
