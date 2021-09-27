@@ -1,7 +1,8 @@
 import React from 'react';
 import offerProp from '../app/offer.prop';
 import {getRating} from '../../utils';
-import {Link} from 'react-router-dom';
+import {generatePath, Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function PlaceCard(props) {
   const {offer} = props;
@@ -12,7 +13,7 @@ function PlaceCard(props) {
     <article className="cities__place-card place-card">
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
+        <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
         </Link>
       </div>
@@ -36,7 +37,7 @@ function PlaceCard(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

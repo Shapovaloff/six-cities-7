@@ -29,7 +29,9 @@ function App(props) {
           />
         </Route>
         <Route exact path={AppRoute.ROOM}>
-          <RoomPage />
+          <RoomPage
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFoundPage />
