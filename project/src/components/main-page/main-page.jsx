@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import Header from '../header/header';
 import offerProp from '../app/offer.prop';
+import Map from '../map/map';
 
 function MainPage(props) {
   const {offers} = props;
@@ -78,7 +79,9 @@ function MainPage(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map offers={offers} />
+              </section>
             </div>
           </div>
         </div>
