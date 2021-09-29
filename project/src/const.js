@@ -1,5 +1,6 @@
 export const MAX_RATING = 5;
 export const MAX_PERCENT = 100;
+export const DEFAULT_CITY = 'Paris';
 
 export const AppRoute = {
   MAIN: '/',
