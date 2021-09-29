@@ -6,9 +6,15 @@ import offerProp from '../app/offer.prop';
 import Map from '../map/map';
 import {ClassesCardType, LOCATIONS} from '../../const';
 import LocationList from '../location-list';
+import {connect} from 'react-redux';
+import MainEmpty from '../main-empty/main-empty';
 
 function MainPage(props) {
-  const {offers} = props;
+  const {offers, city} = props;
+
+  if (!offers.length) {
+    return <MainEmpty locations={LOCATIONS} />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -25,7 +31,7 @@ function MainPage(props) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -62,6 +68,13 @@ function MainPage(props) {
 
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  city: PropTypes.string.isRequired,
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  city: state.city,
+});
+
+export {MainPage};
+export default connect(mapStateToProps)(MainPage) ;

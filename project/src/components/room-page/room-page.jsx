@@ -12,6 +12,7 @@ import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
 import PlaceCard from '../place-card/place-card';
 import {ClassesCardType} from '../../const';
+import {connect} from 'react-redux';
 
 function RoomPage(props) {
   const {offers, reviews} = props;
@@ -127,4 +128,9 @@ RoomPage.propTypes = {
   reviews: PropTypes.arrayOf(reviewsProp).isRequired,
 };
 
-export default RoomPage;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+export default connect(mapStateToProps, null)(RoomPage);
