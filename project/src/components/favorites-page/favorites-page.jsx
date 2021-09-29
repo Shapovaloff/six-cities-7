@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header';
 import offerProp from '../app/offer.prop';
-// import FavoritesLocation from '../favorites-location/favorites-location';
-// import FavoritesItem from '../favorites-item/favorites-item';
 import FavoritesLocation from '../favorites-location/favorites-location';
 
 function FavoritesPage(props) {
@@ -26,11 +24,7 @@ function FavoritesPage(props) {
                 const offersFilter = favoritesOffers.filter((item) => item.city.name === city);
 
                 return (
-                  <FavoritesLocation
-                    key={city}
-                    offersFilter={offersFilter}
-                    city={city}
-                  />
+                  <FavoritesLocation key={city} offersFilter={offersFilter} city={city} />
                 );
               })}
             </ul>

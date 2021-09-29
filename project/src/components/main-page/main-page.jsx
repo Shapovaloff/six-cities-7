@@ -4,6 +4,7 @@ import PlaceCard from '../place-card/place-card';
 import Header from '../header/header';
 import offerProp from '../app/offer.prop';
 import Map from '../map/map';
+import {ClassesCardType} from '../../const';
 
 function MainPage(props) {
   const {offers} = props;
@@ -71,10 +72,9 @@ function MainPage(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-
                 {offers.map((offer, id) => {
                   const keyValue = `place-card-${id}`;
-                  return <PlaceCard key={keyValue} offer={offer} />;
+                  return <PlaceCard key={keyValue} offer={offer} cardType={ClassesCardType.MAIN} />;
                 })}
               </div>
             </section>

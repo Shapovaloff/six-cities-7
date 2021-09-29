@@ -8,5 +8,11 @@ export const AppRoute = {
   ROOM: '/offer/:id',
 };
 
+export const ClassesCardType = {
+  MAIN: 'cities',
+  FAVORITES: 'favorites',
+  NEARBY: 'near-places',
+};
+
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';

@@ -1,23 +1,26 @@
 import React from 'react';
 import offerProp from '../app/offer.prop';
+import PropsTypes from 'prop-types';
 import {getRating} from '../../utils';
 import {generatePath, Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, ClassesCardType} from '../../const';
 
 function PlaceCard(props) {
-  const {offer} = props;
+  const {offer, cardType} = props;
   const {price, type, id, isFavorite, title, previewImage, isPremium, rating} = offer;
   const ratingPercent = getRating(rating);
+  const widthImg = cardType === ClassesCardType.FAVORITES ? '150' : '260';
+  const heightImg = cardType === ClassesCardType.FAVORITES ? '110' : '200';
 
   return (
-    <article className="cities__place-card place-card">
-      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={cardType === ClassesCardType.MAIN ? `${cardType}__place-card place-card` : `${cardType}__card place-card`}>
+      {isPremium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
+          <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt={title} />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${cardType === ClassesCardType.FAVORITES && 'favorites__card-info'} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -47,6 +50,7 @@ function PlaceCard(props) {
 
 PlaceCard.propTypes = {
   offer: offerProp,
+  cardType: PropsTypes.string.isRequired,
 };
 
 export default PlaceCard;

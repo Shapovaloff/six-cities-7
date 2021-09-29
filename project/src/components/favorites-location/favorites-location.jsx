@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../app/offer.prop';
-import FavoritesItem from '../favorites-item/favorites-item';
+// import FavoritesItem from '../favorites-item/favorites-item';
+import {ClassesCardType} from '../../const';
+import PlaceCard from '../place-card/place-card';
 
 function FavoritesLocation(props) {
   const {offersFilter, city} = props;
@@ -19,11 +21,7 @@ function FavoritesLocation(props) {
         {offersFilter.map((offer) => {
           const keyValue = `favorite-offer-${offer.id}`;
 
-          return (
-            <FavoritesItem
-              key={keyValue}
-              offer={offer}
-            />);},
+          return (<PlaceCard key={keyValue} offer={offer} cardType={ClassesCardType.FAVORITES} />);},
         )}
       </div>
     </li>
