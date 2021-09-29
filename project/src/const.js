@@ -15,4 +15,13 @@ export const ClassesCardType = {
   NEARBY: 'near-places',
 };
 
+export const LOCATIONS = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
+
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
