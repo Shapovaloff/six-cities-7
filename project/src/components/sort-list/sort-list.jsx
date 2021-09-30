@@ -2,11 +2,13 @@ import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
 import {connect} from 'react-redux';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 function SortList(props) {
   const {sorts, activeSort, setIsActive, changeSort} = props;
   const ulRef = useRef(null);
-  console.log(changeSort)
+
+  useOutsideClick(ulRef, setIsActive);
 
   return (
     <ul
