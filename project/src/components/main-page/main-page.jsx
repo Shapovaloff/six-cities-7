@@ -9,7 +9,7 @@ import MainPageWrapper from '../main-page-wrapper/main-page-wrapper';
 import MainEmpty from '../main-empty/main-empty';
 
 function MainPage(props) {
-  const {offers, city} = props;
+  const {offers, city, activeSort} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -23,7 +23,7 @@ function MainPage(props) {
         </div>
         <div className="cities">
           {offers.length
-            ? <MainPageWrapper offers={offers} city={city} />
+            ? <MainPageWrapper offers={offers} city={city} activeSort={activeSort} />
             : <MainEmpty />}
         </div>
       </main>
@@ -34,11 +34,13 @@ function MainPage(props) {
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   city: PropTypes.string.isRequired,
+  activeSort: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
   city: state.city,
+  activeSort: state.activeSort,
 });
 
 export {MainPage};
