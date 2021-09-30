@@ -29,6 +29,16 @@ export const reducer = (state = initialState, action) => {
         ...state,
         activeCard: action.payload,
       };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     default:
       return state;
   }
