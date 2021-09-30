@@ -24,4 +24,17 @@ export const LOCATIONS = [
   'Dusseldorf',
 ];
 
+export const SortOptions = {
+  PRICE_LOW_FIRST: 'Price: low to high',
+  PRICE_HIGH_FIRST: 'Price: high to low',
+  TOP_RATED_FIRST: 'Top rated first',
+};
+
+export const SORTS = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first',
+];
+
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
