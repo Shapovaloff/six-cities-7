@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import offerProp from '../app/offer.prop';
 import {LOCATIONS} from '../../const';
-import LocationList from '../location-list';
+import LocationList from '../location-list/location-list';
 import {connect} from 'react-redux';
 import MainPageWrapper from '../main-page-wrapper/main-page-wrapper';
 import MainEmpty from '../main-empty/main-empty';

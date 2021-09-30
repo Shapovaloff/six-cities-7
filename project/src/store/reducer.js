@@ -6,6 +6,7 @@ import {ActionType} from './action';
 const initialState = {
   city: DEFAULT_CITY,
   activeSort: DEFAULT_SORT,
+  activeCard: null,
   offers: offers.filter(({ city }) => city.name === DEFAULT_CITY),
   reviews,
 };
@@ -16,16 +17,17 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload,
-      };
-    case ActionType.FILL_OFFERS_LIST:
-      return {
-        ...state,
-        offers: offers.filter(({ city }) => city.name === action.payload),
+        offers: offers.filter(({city}) => city.name === action.payload),
       };
     case ActionType.CHANGE_SORT:
       return {
         ...state,
         activeSort: action.payload,
+      };
+    case ActionType.HOVER_CARD:
+      return {
+        ...state,
+        activeCard: action.payload,
       };
     default:
       return state;

@@ -4,7 +4,8 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import offerProp from '../app/offer.prop';
 import useMap from '../../hooks/useMap';
-import {URL_MARKER_DEFAULT} from '../../const';
+import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
+import {connect} from 'react-redux';
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -12,8 +13,14 @@ const defaultCustomIcon = leaflet.icon({
   iconAnchor: [15, 30],
 });
 
+const currentCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
+
 function Map(props) {
-  const {offers, city} = props;
+  const {offers, city, activeCard} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -23,7 +30,7 @@ function Map(props) {
     if (map) {
       markers.addTo(map);
 
-      offers.forEach(({ location: { latitude, longitude } }) => {
+      offers.forEach(({location: { latitude, longitude }, id}) => {
         leaflet
           .marker(
             {
@@ -31,7 +38,7 @@ function Map(props) {
               lng: longitude,
             },
             {
-              icon: defaultCustomIcon,
+              icon: activeCard === id ? currentCustomIcon : defaultCustomIcon,
             },
           )
           .addTo(markers);
@@ -46,7 +53,7 @@ function Map(props) {
     return () => {
       markers.clearLayers();
     };
-  }, [map, offers]);
+  }, [map, offers, activeCard]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }
@@ -60,6 +67,12 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  activeCard: PropTypes.number.isRequired,
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard,
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);

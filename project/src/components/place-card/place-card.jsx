@@ -1,19 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import offerProp from '../app/offer.prop';
 import PropsTypes from 'prop-types';
 import {getRating} from '../../utils';
 import {generatePath, Link} from 'react-router-dom';
 import {AppRoute, ClassesCardType} from '../../const';
+import {ActionCreator} from '../../store/action';
+import {connect} from 'react-redux';
 
 function PlaceCard(props) {
-  const {offer, cardType} = props;
+  const {offer, cardType, hoverCard} = props;
   const {price, type, id, isFavorite, title, previewImage, isPremium, rating} = offer;
   const ratingPercent = getRating(rating);
   const widthImg = cardType === ClassesCardType.FAVORITES ? '150' : '260';
   const heightImg = cardType === ClassesCardType.FAVORITES ? '110' : '200';
 
+  useEffect(() => {
+    hoverCard(null);
+  });
+
   return (
-    <article className={cardType === ClassesCardType.MAIN ? `${cardType}__place-card place-card` : `${cardType}__card place-card`}>
+    <article
+      className={cardType === ClassesCardType.MAIN ? `${cardType}__place-card place-card` : `${cardType}__card place-card`}
+      onMouseEnter={() => cardType === ClassesCardType.MAIN && hoverCard(id)}
+      onMouseLeave={() => cardType === ClassesCardType.MAIN && hoverCard(null)}
+    >
       {isPremium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>
@@ -51,6 +61,12 @@ function PlaceCard(props) {
 PlaceCard.propTypes = {
   offer: offerProp,
   cardType: PropsTypes.string.isRequired,
+  hoverCard: PropsTypes.func.isRequired,
 };
 
-export default PlaceCard;
+const mapDispatchToProps = {
+  hoverCard: ActionCreator.hoverCard,
+};
+
+export {PlaceCard};
+export default connect(null, mapDispatchToProps)(PlaceCard);
