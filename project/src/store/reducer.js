@@ -1,6 +1,6 @@
 import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
 import offers from '../mocks/offers';
-import reviews from '../mocks/reviews';
+// import reviews from '../mocks/reviews';
 import {ActionType} from './action';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
   activeSort: DEFAULT_SORT,
   activeCard: null,
   offers: offers.filter(({ city }) => city.name === DEFAULT_CITY),
-  reviews,
+  reviews: [],
 };
 
 export const reducer = (state = initialState, action) => {

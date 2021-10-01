@@ -46,3 +46,10 @@ export const AuthorizationStatus = {
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
 };
+
+export const APIRoute = {
+  OFFERS: '/hotels',
+  REVIEWS: '/comments',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
