@@ -1,4 +1,4 @@
-import {DEFAULT_CITY, DEFAULT_SORT} from '../const';
+import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
 import offers from '../mocks/offers';
 import reviews from '../mocks/reviews';
 import {ActionType} from './action';
@@ -38,6 +38,16 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.payload,
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
     default:
       return state;

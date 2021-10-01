@@ -4,6 +4,8 @@ export const ActionType = {
   HOVER_CARD: 'card/hoverCard',
   LOAD_OFFERS: 'offers/loadOffers',
   LOAD_REVIEWS: 'reviews/loadReviews',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -26,5 +28,12 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
