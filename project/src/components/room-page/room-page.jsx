@@ -19,7 +19,7 @@ function RoomPage(props) {
   const location = useLocation();
   const offer = offers.find((item) => item.id === location.state);
   const similarOffers = offers.slice(0, 3);
-  const {images, goods, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, host, description} = offer;
+  const {images, goods, is_premium, title, is_favorite, rating, type, bedrooms, max_adults, price, host, description} = offer;
   const cardRating = getRating(rating);
 
   return (
@@ -34,7 +34,7 @@ function RoomPage(props) {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && (
+              {is_premium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>
@@ -42,7 +42,7 @@ function RoomPage(props) {
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={`property__bookmark-button ${isFavorite && 'property__bookmark-button--active'} button`} type="button">
+                <button className={`property__bookmark-button ${is_favorite && 'property__bookmark-button--active'} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -64,7 +64,7 @@ function RoomPage(props) {
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {maxAdults} adults
+                  Max {max_adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -79,12 +79,12 @@ function RoomPage(props) {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt={host.name} />
+                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt={host.name} />
                   </div>
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro && (
+                  {host.is_pro && (
                     <span className="property__user-status">
                       Pro
                     </span>

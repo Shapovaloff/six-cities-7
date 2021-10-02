@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 
 function PlaceCard(props) {
   const {offer, cardType, hoverCard} = props;
-  const {price, type, id, isFavorite, title, previewImage, isPremium, rating} = offer;
+  const {price, type, id, is_favorite, title, preview_image, is_premium, rating} = offer;
   const ratingPercent = getRating(rating);
   const widthImg = cardType === ClassesCardType.FAVORITES ? '150' : '260';
   const heightImg = cardType === ClassesCardType.FAVORITES ? '110' : '200';
@@ -24,10 +24,10 @@ function PlaceCard(props) {
       onMouseEnter={() => cardType === ClassesCardType.MAIN && hoverCard(id)}
       onMouseLeave={() => cardType === ClassesCardType.MAIN && hoverCard(null)}
     >
-      {isPremium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
+      {is_premium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>
-          <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt={title} />
+          <img className="place-card__image" src={preview_image} width={widthImg} height={heightImg} alt={title} />
         </Link>
       </div>
       <div className={`${cardType === ClassesCardType.FAVORITES && 'favorites__card-info'} place-card__info`}>
@@ -36,7 +36,7 @@ function PlaceCard(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
+          <button className={`place-card__bookmark-button ${is_favorite && 'place-card__bookmark-button--active'} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>

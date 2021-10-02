@@ -10,6 +10,7 @@ import MainEmpty from '../main-empty/main-empty';
 
 function MainPage(props) {
   const {offers, city, activeSort} = props;
+  const sortedOffers = offers.filter((item) => item.city.name === city);
 
   return (
     <div className="page page--gray page--main">
@@ -23,7 +24,7 @@ function MainPage(props) {
         </div>
         <div className="cities">
           {offers.length
-            ? <MainPageWrapper offers={offers} city={city} activeSort={activeSort} />
+            ? <MainPageWrapper offers={sortedOffers} city={city} activeSort={activeSort} />
             : <MainEmpty />}
         </div>
       </main>

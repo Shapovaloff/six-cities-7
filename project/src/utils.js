@@ -1,4 +1,4 @@
-import {MAX_PERCENT, MAX_RATING, SortOptions} from './const';
+import {AuthorizationStatus, MAX_PERCENT, MAX_RATING, SortOptions} from './const';
 
 export const getRating = (rating) =>
   `${((rating / MAX_RATING) * MAX_PERCENT).toFixed()}%`;
@@ -15,3 +15,6 @@ export const sortOffers = (sort, offers) => {
       return offers;
   }
 };
+
+export const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;

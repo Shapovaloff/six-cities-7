@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../app/offer.prop';
-// import FavoritesItem from '../favorites-item/favorites-item';
 import {ClassesCardType} from '../../const';
 import PlaceCard from '../place-card/place-card';
 

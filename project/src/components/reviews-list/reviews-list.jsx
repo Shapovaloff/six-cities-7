@@ -5,6 +5,7 @@ import {getRating} from '../../utils';
 
 function ReviewsList(props) {
   const {reviews} = props;
+  console.log(reviews)
 
   return (
     <ul className="reviews__list">

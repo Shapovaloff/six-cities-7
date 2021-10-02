@@ -6,9 +6,9 @@ export default PropTypes.shape({
   id: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   user: PropTypes.shape({
-    avatarUrl: PropTypes.string.isRequired,
+    avatar_url: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    isPro: PropTypes.bool.isRequired,
+    is_pro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
 }).isRequired;
