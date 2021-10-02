@@ -1,13 +1,16 @@
-import {AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT} from '../const';
+import {AuthorizationStatus, Locations, DEFAULT_SORT} from '../const';
 import {ActionType} from './action';
 
 const initialState = {
-  city: DEFAULT_CITY,
+  city: Locations.PARIS,
   activeSort: DEFAULT_SORT,
   activeCard: null,
   offers: [],
+  offersNearby: [],
   reviews: [],
+  user: {},
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -27,16 +30,37 @@ export const reducer = (state = initialState, action) => {
         ...state,
         activeCard: action.payload,
       };
+    case ActionType.SET_IS_LOAD_OFFERS:
+      return {
+        ...state,
+        isDataLoaded: action.payload,
+      };
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        offers: [action.payload],
+        isDataLoaded: true,
+      };
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
         offers: action.payload,
         isDataLoaded: true,
       };
+    case ActionType.LOAD_OFFERS_NEARBY:
+      return {
+        ...state,
+        offersNearby: action.payload,
+      };
     case ActionType.LOAD_REVIEWS:
       return {
         ...state,
         reviews: action.payload,
+      };
+    case ActionType.LOAD_USER_INFO:
+      return {
+        ...state,
+        user: action.payload,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

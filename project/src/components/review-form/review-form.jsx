@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import RatingList from '../rating-list/rating-list';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {sendReview} from '../../store/api-actions';
 
 const MIN_SYMBOL_COUNT = 50;
 
-function ReviewForm() {
+function ReviewForm(props) {
+  const {submit, id} = props;
+
   const [review, setReview] = useState({
     rating: '',
     review: '',
@@ -11,10 +16,17 @@ function ReviewForm() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    submit({comment: review.review, rating: review.rating, id});
+
+    setReview((state) => ({
+      ...state,
+      review: '',
+    }));
   };
 
-  const handleFieldChange = (evt) => {
-    const { name, value } = evt.target;
+  const handleChange = (evt) => {
+    const {name, value} = evt.target;
     setReview((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -28,13 +40,14 @@ function ReviewForm() {
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <RatingList handleFieldChange={handleFieldChange} />
+      <RatingList handleChange={handleChange} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
+        onChange={handleChange}
+        value={review.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -54,4 +67,13 @@ function ReviewForm() {
   );
 }
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  submit: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
+const mapDispatchToProps = {
+  submit: sendReview,
+};
+
+export default connect(null, mapDispatchToProps)(ReviewForm);

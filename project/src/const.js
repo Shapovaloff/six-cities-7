@@ -1,6 +1,5 @@
 export const MAX_RATING = 5;
 export const MAX_PERCENT = 100;
-export const DEFAULT_CITY = 'Paris';
 export const DEFAULT_SORT = 'Popular';
 
 export const AppRoute = {
@@ -16,14 +15,14 @@ export const ClassesCardType = {
   NEARBY: 'near-places',
 };
 
-export const LOCATIONS = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
+export const Locations = {
+  PARIS: 'Paris',
+  COLOGNE: 'Cologne',
+  BRUSSELS: 'Brussels',
+  AMSTERDAM: 'Amsterdam',
+  HAMBURG: 'Hamburg',
+  DUSSELDORF: 'Dusseldorf',
+};
 
 export const SortOptions = {
   PRICE_LOW_FIRST: 'Price: low to high',
@@ -52,4 +51,5 @@ export const APIRoute = {
   REVIEWS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFERS_NEARBY: '/nearby',
 };

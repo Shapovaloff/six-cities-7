@@ -2,10 +2,15 @@ export const ActionType = {
   CHANGE_CITY: 'cities/changeCity',
   CHANGE_SORT: 'sort/changeSort',
   HOVER_CARD: 'card/hoverCard',
+  SET_IS_LOAD_OFFERS: 'offers/setIsLoadOffers',
+  LOAD_OFFER: 'offers/loadOffer',
   LOAD_OFFERS: 'offers/loadOffers',
+  LOAD_OFFERS_NEARBY: 'offers/loadOffersNearby',
   LOAD_REVIEWS: 'reviews/loadReviews',
+  LOAD_USER_INFO: 'user/loadUserInfo',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'route/redirectToRoute',
 };
 
 export const ActionCreator = {
@@ -21,13 +26,29 @@ export const ActionCreator = {
     type: ActionType.HOVER_CARD,
     payload: id,
   }),
+  setIsLoadOffers: (status) => ({
+    type: ActionType.SET_IS_LOAD_OFFERS,
+    payload: status,
+  }),
+  loadOffer: (offer) => ({
+    type: ActionType.LOAD_OFFER,
+    payload: offer,
+  }),
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
+  loadOffersNearby: (offersNearby) => ({
+    type: ActionType.LOAD_OFFERS_NEARBY,
+    payload: offersNearby,
+  }),
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+  loadUserInfo: (userInfo) => ({
+    type: ActionType.LOAD_USER_INFO,
+    payload: userInfo,
   }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
@@ -35,5 +56,9 @@ export const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (route) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: route,
   }),
 };

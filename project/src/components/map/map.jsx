@@ -48,6 +48,8 @@ function Map(props) {
         [offers[0].city.location.latitude, offers[0].city.location.longitude],
         offers[0].city.location.zoom,
       );
+
+      map.scrollWheelZoom.disable();
     }
 
     return () => {
@@ -67,7 +69,7 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
-  activeCard: PropTypes.number.isRequired,
+  activeCard: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({

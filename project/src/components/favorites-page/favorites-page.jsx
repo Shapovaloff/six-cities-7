@@ -20,18 +20,20 @@ function FavoritesPage(props) {
       <main className={`page__main page__main--favorites ${favoritesOffers.length && 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
           {favoritesOffers.length
-            ? (<section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                {favoritesCities.map((city) => {
-                  const offersFilter = favoritesOffers.filter((item) => item.city.name === city);
+            ? (
+              <section className="favorites">
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {favoritesCities.map((city) => {
+                    const offersFilter = favoritesOffers.filter((item) => item.city.name === city);
 
-                  return (
-                    <FavoritesLocation key={city} offersFilter={offersFilter} city={city} />
-                  );
-                })}
-              </ul>
-            </section>)
+                    return (
+                      <FavoritesLocation key={city} offersFilter={offersFilter} city={city} />
+                    );
+                  })}
+                </ul>
+              </section>
+            )
             : <FavoritesEmpty />}
         </div>
       </main>
