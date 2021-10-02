@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../app/offer.prop';
 import reviewsProp from '../app/reviews.prop';
@@ -13,14 +13,21 @@ import Map from '../map/map';
 import PlaceCard from '../place-card/place-card';
 import {ClassesCardType} from '../../const';
 import {connect} from 'react-redux';
+import {fetchOffersList, fetchReviewsList} from '../../store/api-actions';
 
 function RoomPage(props) {
-  const {offers, reviews} = props;
+  const {offers, reviews, loadReviewList} = props;
   const location = useLocation();
-  const offer = offers.find((item) => item.id === location.state);
+  const roomId = +location.pathname.replace(/\D+/g, '');
+
+  const offer = offers.find((item) => item.id === roomId);
   const similarOffers = offers.slice(0, 3);
   const {images, goods, is_premium, title, is_favorite, rating, type, bedrooms, max_adults, price, host, description} = offer;
   const cardRating = getRating(rating);
+
+  useEffect(() => {
+    loadReviewList(roomId);
+  }, [roomId, loadReviewList]);
 
   return (
     <div className="page">
@@ -126,6 +133,8 @@ function RoomPage(props) {
 RoomPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewsProp).isRequired,
+  loadReviewList: PropTypes.func.isRequired,
+  loadOfferList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -133,4 +142,9 @@ const mapStateToProps = (state) => ({
   reviews: state.reviews,
 });
 
-export default connect(mapStateToProps, null)(RoomPage);
+const mapDispatchToProps = {
+  loadReviewList: fetchReviewsList,
+  loadOfferList: fetchOffersList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);

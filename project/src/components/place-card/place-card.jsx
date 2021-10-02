@@ -26,7 +26,7 @@ function PlaceCard(props) {
     >
       {is_premium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-        <Link to={{pathname: generatePath(AppRoute.ROOM, {id}), state: id}}>
+        <Link to={{pathname: generatePath(AppRoute.ROOM, {id})}}>
           <img className="place-card__image" src={preview_image} width={widthImg} height={heightImg} alt={title} />
         </Link>
       </div>

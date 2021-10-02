@@ -5,7 +5,6 @@ import {getRating} from '../../utils';
 
 function ReviewsList(props) {
   const {reviews} = props;
-  console.log(reviews)
 
   return (
     <ul className="reviews__list">
@@ -22,7 +21,7 @@ function ReviewsList(props) {
           <li key={id} className="reviews__item">
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
+                <img className="reviews__avatar user__avatar" src={user.avatar_url} width="54" height="54" alt={user.name} />
               </div>
               <span className="reviews__user-name">
                 {user.name}
