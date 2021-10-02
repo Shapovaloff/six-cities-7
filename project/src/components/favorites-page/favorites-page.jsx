@@ -4,10 +4,11 @@ import Header from '../header/header';
 import offerProp from '../app/offer.prop';
 import FavoritesLocation from '../favorites-location/favorites-location';
 import {connect} from 'react-redux';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 function FavoritesPage(props) {
   const {offers} = props;
-  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+  const favoritesOffers = offers.filter((offer) => offer.is_favorite);
   const uniqueCities = new Set();
   favoritesOffers.forEach((item) => uniqueCities.add(item.city.name));
   const favoritesCities = [...uniqueCities.values()];
@@ -16,20 +17,22 @@ function FavoritesPage(props) {
     <div className="page">
       <Header />
 
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${favoritesOffers.length && 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoritesCities.map((city) => {
-                const offersFilter = favoritesOffers.filter((item) => item.city.name === city);
+          {favoritesOffers.length
+            ? (<section className="favorites">
+              <h1 className="favorites__title">Saved listing</h1>
+              <ul className="favorites__list">
+                {favoritesCities.map((city) => {
+                  const offersFilter = favoritesOffers.filter((item) => item.city.name === city);
 
-                return (
-                  <FavoritesLocation key={city} offersFilter={offersFilter} city={city} />
-                );
-              })}
-            </ul>
-          </section>
+                  return (
+                    <FavoritesLocation key={city} offersFilter={offersFilter} city={city} />
+                  );
+                })}
+              </ul>
+            </section>)
+            : <FavoritesEmpty />}
         </div>
       </main>
       <footer className="footer container">
