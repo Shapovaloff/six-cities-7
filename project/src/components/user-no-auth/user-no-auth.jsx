@@ -7,9 +7,9 @@ function UserNoAuth() {
     <li className="header__nav-item user">
       <NavLink
         className="header__nav-link header__nav-link--profile"
-        to={AppRoute.LOGIN}
+        to={AppRoute.SIGN_IN}
         isActive={(match, { pathname }) =>
-          match && pathname === AppRoute.LOGIN}
+          match && pathname === AppRoute.SIGN_IN}
         activeStyle={{
           cursor: 'default',
           pointerEvents: 'none',

@@ -1,17 +1,18 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
 import {Link, NavLink} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUser} from '../../store/user-data/selectors';
 import {logout} from '../../store/api-actions';
-import {ActionCreator} from '../../store/action';
 
-function UserAuth(props) {
-  const {email, avatarUrl, goOut, loadUserInfo} = props;
+function UserAuth() {
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
+  const avatarUrl = user && user.avatarUrl;
+  const email = user && user.email;
 
-  const handleClick = async () => {
-    await goOut();
-    loadUserInfo({});
+  const handleClick = () => {
+    dispatch(logout());
   };
 
   return (
@@ -20,7 +21,7 @@ function UserAuth(props) {
         <NavLink
           className="header__nav-link header__nav-link--profile"
           to={AppRoute.FAVORITES}
-          isActive={(match, {pathname}) =>
+          isActive={(match, { pathname }) =>
             match && pathname === AppRoute.FAVORITES}
           activeStyle={{
             pointerEvents: 'none',
@@ -42,22 +43,4 @@ function UserAuth(props) {
   );
 }
 
-UserAuth.propTypes = {
-  email: PropTypes.string,
-  avatarUrl: PropTypes.string,
-  goOut: PropTypes.func.isRequired,
-  loadUserInfo: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ user: { email, avatarUrl } }) => ({
-  email,
-  avatarUrl,
-});
-
-const mapDispatchToProps = {
-  goOut: logout,
-  loadUserInfo: ActionCreator.loadUserInfo,
-};
-
-export {UserAuth};
-export default connect(mapStateToProps, mapDispatchToProps)(UserAuth);
+export default UserAuth;

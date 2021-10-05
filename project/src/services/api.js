@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { TOKEN } from '../const';
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
@@ -7,7 +7,7 @@ const HttpCode = {
   UNAUTHORIZED: 401,
 };
 
-const token = localStorage.getItem('token') ?? '';
+const token = localStorage.getItem(TOKEN) ?? '';
 
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
@@ -31,6 +31,10 @@ export const createAPI = (onUnauthorized) => {
   };
 
   api.interceptors.response.use(onSuccess, onFail);
+  api.interceptors.request.use((request) => {
+    request.headers = { 'x-token': localStorage.getItem(TOKEN) ?? '' };
+    return request;
+  });
 
   return api;
 };

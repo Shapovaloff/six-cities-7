@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-import RatingList from '../rating-list/rating-list';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import RatingList from '../rating-list/rating-list';
+import Alert from '../alert/alert';
 import {sendReview} from '../../store/api-actions';
-
+import {getIsReviewError, getIsReviewSending, getIsReviewSuccess} from '../../store/user-data/selectors';
 const MIN_SYMBOL_COUNT = 50;
 
 function ReviewForm(props) {
-  const {submit, id} = props;
+  const dispatch = useDispatch();
+  const isReviewSending = useSelector(getIsReviewSending);
+  const isReviewSuccess = useSelector(getIsReviewSuccess);
+  const isReviewError = useSelector(getIsReviewError);
+  const {id} = props;
 
   const [review, setReview] = useState({
     rating: '',
@@ -17,18 +22,23 @@ function ReviewForm(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    submit({comment: review.review, rating: review.rating, id});
-
-    setReview((state) => ({
-      ...state,
-      review: '',
-    }));
+    dispatch(sendReview({ comment: review.review, rating: review.rating, id }));
   };
 
   const handleChange = (evt) => {
     const {name, value} = evt.target;
     setReview((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  useEffect(() => {
+    if (isReviewSuccess) {
+      setReview((state) => ({
+        ...state,
+        rating: '',
+        review: '',
+      }));
+    }
+  }, [isReviewSuccess]);
 
   return (
     <form
@@ -37,10 +47,9 @@ function ReviewForm(props) {
       method="post"
       onSubmit={handleSubmit}
     >
-      <label className="reviews__label form__label" htmlFor="review">
-        Your review
-      </label>
-      <RatingList handleChange={handleChange} />
+      {isReviewError && <Alert />}
+      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <RatingList handleChange={handleChange} checked={+review.rating} />
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
@@ -48,6 +57,7 @@ function ReviewForm(props) {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleChange}
         value={review.review}
+        disabled={isReviewSending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -58,7 +68,10 @@ function ReviewForm(props) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.review.length < MIN_SYMBOL_COUNT && true}
+          disabled={
+            isReviewSending ||
+            !(review.review.length >= MIN_SYMBOL_COUNT && review.rating)
+          }
         >
           Submit
         </button>
@@ -68,12 +81,7 @@ function ReviewForm(props) {
 }
 
 ReviewForm.propTypes = {
-  submit: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
 };
 
-const mapDispatchToProps = {
-  submit: sendReview,
-};
-
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

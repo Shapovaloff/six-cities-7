@@ -1,25 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import RatingItem from '../rating-item/rating-item';
+import {RATINGS} from '../../const';
+import {useSelector} from 'react-redux';
+import {getIsReviewSending} from '../../store/user-data/selectors';
 
-const RATINGS = [5, 4, 3, 2, 1];
+function RatingList(props) {
+  const {handleChange, checked} = props;
+  const isReviewSending = useSelector(getIsReviewSending);
 
-function RatingList({ handleFieldChange }) {
   return (
-    <div
-      className="reviews__rating-form form__rating"
-      onChange={handleFieldChange}
-    >
+    <div className="reviews__rating-form form__rating" onChange={handleChange} >
       {RATINGS.map((item) => (
-        <RatingItem key={item} rating={item} />
+        <RatingItem
+          key={item}
+          rating={item}
+          checked={checked}
+          isDisabled={isReviewSending}
+        />
       ))}
     </div>
   );
 }
 
 RatingList.propTypes = {
-  handleFieldChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  checked: PropTypes.number.isRequired,
 };
 
 export default RatingList;

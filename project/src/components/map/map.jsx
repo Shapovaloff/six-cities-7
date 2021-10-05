@@ -1,11 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, useEffect, memo} from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import offerProp from '../app/offer.prop';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getActiveCard} from '../../store/app-ui/selectors';
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -20,7 +21,8 @@ const currentCustomIcon = leaflet.icon({
 });
 
 function Map(props) {
-  const {offers, city, activeCard} = props;
+  const {offers, city} = props;
+  const activeCard = useSelector(getActiveCard);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -69,12 +71,6 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
-  activeCard: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default memo(Map);

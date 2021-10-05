@@ -1,16 +1,19 @@
 import React, {useRef, useState} from 'react';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
-import {AppRoute, Locations} from '../../const';
+import {AlertText, AppRoute, Locations} from '../../const';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIsAuthorizationError, getIsOffline} from '../../store/user-data/selectors';
 import {login} from '../../store/api-actions';
+import Alert from '../alert/alert';
+import {changeActiveCity} from '../../store/actions';
 
-function SignInPage(props) {
-  const {changeCity, onSubmit} = props;
-  const loginRef = useRef(null);
+function SignInPage() {
+  const isAuthorizationError = useSelector(getIsAuthorizationError);
+  const isOffline = useSelector(getIsOffline);
+  const dispatch = useDispatch();
   const [password, setPassword] = useState('');
+  const loginRef = useRef(null);
 
   const handleChange = (evt) => {
     setPassword(evt.target.value.trim());
@@ -19,16 +22,19 @@ function SignInPage(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
-      login: loginRef.current.value,
-      password: password,
-    });
+    dispatch(
+      login({
+        login: loginRef.current.value,
+        password: password,
+      }),
+    );
   };
 
   return (
     <div className="page page--gray page--login">
       <Header />
-
+      {isOffline && <Alert text={AlertText.OFFLINE} />}
+      {isAuthorizationError && <Alert />}
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -69,7 +75,7 @@ function SignInPage(props) {
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.MAIN}>
                 <span
-                  onClick={() => changeCity(Locations.AMSTERDAM)}
+                  onClick={() => dispatch(changeActiveCity(Locations.AMSTERDAM))}
                 >
                   Amsterdam
                 </span>
@@ -82,16 +88,5 @@ function SignInPage(props) {
   );
 }
 
-SignInPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  changeCity: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = {
-  onSubmit: login,
-  changeCity: ActionCreator.changeCity,
-  redirectToRoute: ActionCreator.redirectToRoute,
-};
-
-export default connect(null, mapDispatchToProps)(SignInPage);
+export default SignInPage;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../app/offer.prop';
 import {ClassesCardType} from '../../const';
-import PlaceCard from '../place-card/place-card';
+import PlaceCard from '../card-item/card-item';
 
 function FavoritesLocation(props) {
   const {offersFilter, city} = props;

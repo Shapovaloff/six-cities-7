@@ -1,28 +1,23 @@
-import React, {useEffect} from 'react';
+import React, {memo} from 'react';
 import offerProp from '../app/offer.prop';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {getRating} from '../../utils';
 import {generatePath, Link} from 'react-router-dom';
 import {AppRoute, ClassesCardType} from '../../const';
-import {ActionCreator} from '../../store/action';
-import {connect} from 'react-redux';
+import FavoritesButton from '../favorites-button/favorites-button';
 
-function PlaceCard(props) {
-  const {offer, cardType, hoverCard} = props;
+function CardItem(props) {
+  const {offer, cardType = ClassesCardType.MAIN, onMouseEnter, onMouseLeave} = props;
   const {id, price, rating, isFavorite, isPremium, title, type, previewImage} = offer;
   const ratingPercent = getRating(rating);
   const widthImg = cardType === ClassesCardType.FAVORITES ? '150' : '260';
   const heightImg = cardType === ClassesCardType.FAVORITES ? '110' : '200';
 
-  useEffect(() => {
-    hoverCard(null);
-  });
-
   return (
     <article
       className={cardType === ClassesCardType.MAIN ? `${cardType}__place-card place-card` : `${cardType}__card place-card`}
-      onMouseEnter={() => cardType === ClassesCardType.MAIN && hoverCard(id)}
-      onMouseLeave={() => cardType === ClassesCardType.MAIN && hoverCard(null)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {isPremium && cardType === ClassesCardType.MAIN && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
@@ -36,12 +31,11 @@ function PlaceCard(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoritesButton
+            id={id}
+            isFavorite={isFavorite}
+            buttonType={ClassesCardType.MAIN}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -58,15 +52,11 @@ function PlaceCard(props) {
   );
 }
 
-PlaceCard.propTypes = {
+CardItem.propTypes = {
   offer: offerProp,
-  cardType: PropsTypes.string.isRequired,
-  hoverCard: PropsTypes.func.isRequired,
+  cardType: PropTypes.string,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
-const mapDispatchToProps = {
-  hoverCard: ActionCreator.hoverCard,
-};
-
-export {PlaceCard};
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default memo(CardItem);

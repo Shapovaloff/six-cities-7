@@ -1,4 +1,4 @@
-import {AuthorizationStatus, MAX_PERCENT, MAX_RATING, SortOptions} from './const';
+import {AuthorizationStatus, DateConfig, MAX_PERCENT, MAX_RATING, SortOptions} from './const';
 
 export const getRating = (rating) =>
   `${((rating / MAX_RATING) * MAX_PERCENT).toFixed()}%`;
@@ -15,6 +15,13 @@ export const sortOffers = (sort, offers) => {
       return offers;
   }
 };
+
+export const getDataString = (date) => {
+  return new Date(date).toLocaleDateString(DateConfig.LOCALES, {
+    year: DateConfig.YEAR,
+    month: DateConfig.MONTH,
+  });
+}
 
 export const isCheckedAuth = (authorizationStatus) =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;
